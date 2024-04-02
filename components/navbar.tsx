@@ -1,5 +1,5 @@
 import Image from "next/image";
-import logo from "@/app/assets/logo.PNG";
+import logo from "@/app/_assets/logo.PNG";
 import { Button } from "./ui/button";
 import { Lock, Menu, Search, ShoppingCart } from "lucide-react";
 import { Badge } from "./ui/badge";
@@ -9,11 +9,13 @@ import { Input } from "./ui/input";
 export function Navbar() {
   return (
     <div className="w-full px-4 py-2 border-b border-primary shadow-md shadow-primary/70 flex justify-between items-center">
-      <Image
-        src={logo}
-        height={80}
-        alt={"Ave Maria Religious Supplies Limited"}
-      />
+      <Link href="/">
+        <Image
+          src={logo}
+          height={80}
+          alt={"Ave Maria Religious Supplies Limited"}
+        />
+      </Link>
 
       <div className="w-full max-w-sm hidden md:block relative group">
         <Input placeholder="Search" className="pr-8" />
