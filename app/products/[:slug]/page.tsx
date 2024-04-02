@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-import logo from "@/app/_assets/logo.PNG";
+import logo from "../../_assets/logo.PNG";
 import { Button } from "@/components/ui/button";
 
 export default function ProductItemPage() {

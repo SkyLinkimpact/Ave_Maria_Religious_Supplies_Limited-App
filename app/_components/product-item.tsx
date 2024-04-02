@@ -2,7 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 
 import { Card, CardContent } from "@/components/ui/card";
-import logo from "@/app/_assets/logo.PNG";
+import logo from "../_assets/logo.PNG";
 
 export type ProductItemType = {
   title: string;
