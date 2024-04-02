@@ -1,5 +1,5 @@
 import Image from "next/image";
-import logo from "@/app/_assets/logo.PNG";
+import logo from "@/app/_assets/logo.webp";
 import { Button } from "./ui/button";
 import { Lock, Menu, Search, ShoppingCart } from "lucide-react";
 import { Badge } from "./ui/badge";
