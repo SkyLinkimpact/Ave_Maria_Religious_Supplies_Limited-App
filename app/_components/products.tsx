@@ -35,7 +35,7 @@ const productItems: { title: string }[] = [
 
 function Products() {
   return (
-    <div className="grid md:grid-cols-3 lg:grid-cols-5 gap-4 container mx-auto">
+    <div className="grid md:grid-cols-3 lg:grid-cols-5 gap-4">
       {productItems
         .map((p) => ({
           ...p,
