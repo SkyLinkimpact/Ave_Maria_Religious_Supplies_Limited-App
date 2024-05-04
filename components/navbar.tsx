@@ -1,11 +1,38 @@
+"use client";
+
 import Image from "next/image";
 import logo from "@/app/_assets/logo.webp";
 import { Button } from "./ui/button";
 import { Menu, Search } from "lucide-react";
 import Link from "next/link";
 import { Input } from "./ui/input";
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  navigationMenuTriggerStyle,
+  NavigationMenuTrigger,
+} from "./ui/navigation-menu";
+import { Category } from "@/lib/types";
+import { useEffect, useState } from "react";
+
+const getCategories = async () => {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}/categories`);
+
+  const data: Category[] = await res.json();
+
+  return data;
+};
 
 export function Navbar() {
+  const [categories, setCategories] = useState<Category[]>([]);
+
+  useEffect(() => {
+    getCategories().then((data) => setCategories(data));
+  }, []);
+
   return (
     <div className="w-full px-4 py-2 border-b border-primary shadow-md shadow-primary/70">
       <div className="container mx-auto flex justify-between items-center">
@@ -29,12 +56,45 @@ export function Navbar() {
           </Badge>
           <ShoppingCart className="size-6" />
         </Button> */}
-
-          {/* <Link href="/login" className="md:flex gap-2 hidden">
+          <div className="hidden md:flex gap-x-4 items-center">
+            {/* <Link href="/login" className="md:flex gap-2 hidden">
           <Lock className="size-6" />
           Login/Register
         </Link> */}
-          <div className="hidden md:block space-x-4">
+            <NavigationMenu>
+              <NavigationMenuList>
+                <NavigationMenuItem>
+                  <NavigationMenuTrigger className="text-base font-normal">
+                    Products
+                  </NavigationMenuTrigger>
+                  <NavigationMenuContent>
+                    <div className="w-32 flex flex-col">
+                      <Link href="/products" legacyBehavior passHref>
+                        <NavigationMenuLink
+                          className={navigationMenuTriggerStyle()}
+                        >
+                          All
+                        </NavigationMenuLink>
+                      </Link>
+                      {categories.map((category) => (
+                        <Link
+                          key={category.id}
+                          href={`/products?category=${category.slug}`}
+                          legacyBehavior
+                          passHref
+                        >
+                          <NavigationMenuLink
+                            className={navigationMenuTriggerStyle()}
+                          >
+                            {category.title}
+                          </NavigationMenuLink>
+                        </Link>
+                      ))}
+                    </div>
+                  </NavigationMenuContent>
+                </NavigationMenuItem>
+              </NavigationMenuList>
+            </NavigationMenu>
             <Link href="/about_us">About Us</Link>
             <Link href="/contact_us">Contact Us</Link>
           </div>
