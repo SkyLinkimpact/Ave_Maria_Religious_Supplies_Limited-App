@@ -17,6 +17,13 @@ import {
 } from "./ui/navigation-menu";
 import { Category } from "@/lib/types";
 import { useEffect, useState } from "react";
+import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "./ui/accordion";
 
 const getCategories = async () => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}/categories`);
@@ -100,9 +107,41 @@ export function Navbar() {
           </div>
 
           {/* Mobile Nav button */}
-          <Button variant="ghost" size="icon" className="md:hidden">
-            <Menu className="size-6" />
-          </Button>
+          <Sheet>
+            <SheetTrigger asChild>
+              <Button variant="ghost" size="icon" className="md:hidden">
+                <Menu className="size-6" />
+              </Button>
+            </SheetTrigger>
+
+            <SheetContent>
+              <div className="flex flex-col gap-2">
+                <Accordion collapsible type="single">
+                  <AccordionItem value="products">
+                    <AccordionTrigger>Products</AccordionTrigger>
+                    <AccordionContent>
+                      <div className="flex flex-col gap-2">
+                        {categories.map((category) => (
+                          <Link
+                            key={category.id}
+                            href={`/products?category=${category.slug}`}
+                          >
+                            {category.title}
+                          </Link>
+                        ))}
+                      </div>
+                    </AccordionContent>
+                  </AccordionItem>
+                </Accordion>
+                <Link href="/about_us" className="p-2">
+                  About Us
+                </Link>
+                <Link href="/contact_us" className="p-2">
+                  Contact Us
+                </Link>
+              </div>
+            </SheetContent>
+          </Sheet>
         </div>
       </div>
     </div>
