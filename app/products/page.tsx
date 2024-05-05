@@ -108,7 +108,7 @@ function ProductsPage() {
         <div className="grid md:grid-cols-3 lg:grid-cols-5 gap-4">
           {products?.data.map((p) => (
             <ProductItem
-              image={p.images[0][0]}
+              image={p.images[0]}
               slug={p.slug}
               title={p.title}
               price={p.price}
