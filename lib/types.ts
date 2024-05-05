@@ -22,6 +22,7 @@ type PaginatedResponse<T> = {
 export type Product = {
   id: string;
   title: string;
+  description: string;
   slug: string;
   price: number;
   inventory: number;
