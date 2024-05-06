@@ -3,7 +3,7 @@
 import { Category, Products } from "@/lib/types";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import ProductItem from "../_components/product-item";
 import {
   Pagination,
@@ -71,70 +71,72 @@ function ProductsPage() {
   }, [page, category]);
 
   return (
-    <div className="grid md:grid-cols-[auto_1fr] gap-4 h-full">
-      <div className="hidden md:flex flex-col gap-2 w-60 border-r">
-        <Link
-          key={"all"}
-          href={`/products`}
-          className={cn(
-            "p-4 hover:bg-primary hover:text-white hover:font-semibold duration-150 ease-in transition-all"
-          )}
-        >
-          All
-        </Link>
-        {categories?.map((cat) => (
+    <Suspense fallback={<>Loading</>}>
+      <div className="grid md:grid-cols-[auto_1fr] gap-4 h-full">
+        <div className="hidden md:flex flex-col gap-2 w-60 border-r">
           <Link
-            key={cat.id}
-            href={`/products?category=${cat.slug}`}
+            key={"all"}
+            href={`/products`}
             className={cn(
-              "p-4 hover:bg-primary hover:text-white hover:font-semibold duration-150 ease-in transition-all",
-              category === cat.slug && "text-primary font-semibold uppercase"
+              "p-4 hover:bg-primary hover:text-white hover:font-semibold duration-150 ease-in transition-all"
             )}
           >
-            {cat.title}
+            All
           </Link>
-        ))}
-      </div>
-
-      <div className="flex flex-col gap-6">
-        <h1 className="text-lg md:text-3xl">
-          Products{" "}
-          {category && `(${category.replace("-", " ").toLocaleUpperCase()})`}
-        </h1>
-        <div className="grid md:grid-cols-3 lg:grid-cols-5 gap-4">
-          {products?.data.map((p) => (
-            <ProductItem
-              image={p.images[0]}
-              slug={p.slug}
-              title={p.title}
-              price={p.price}
-              key={p.id}
-            />
+          {categories?.map((cat) => (
+            <Link
+              key={cat.id}
+              href={`/products?category=${cat.slug}`}
+              className={cn(
+                "p-4 hover:bg-primary hover:text-white hover:font-semibold duration-150 ease-in transition-all",
+                category === cat.slug && "text-primary font-semibold uppercase"
+              )}
+            >
+              {cat.title}
+            </Link>
           ))}
         </div>
 
-        {products && products.meta.total > 15 && (
-          <Pagination>
-            <PaginationContent>
-              <PaginationItem>
-                <PaginationPrevious
-                  isActive={parseInt(page ?? "1") !== 1}
-                  onClick={prevPage}
-                  className="cursor-pointer"
-                />
-              </PaginationItem>
-              <PaginationItem>
-                <PaginationNext
-                  isActive={parseInt(page ?? "1") !== products.meta.last_page}
-                  onClick={nextPage}
-                  className="cursor-pointer"
-                />
-              </PaginationItem>
-            </PaginationContent>
-          </Pagination>
-        )}
+        <div className="flex flex-col gap-6">
+          <h1 className="text-lg md:text-3xl">
+            Products{" "}
+            {category && `(${category.replace("-", " ").toLocaleUpperCase()})`}
+          </h1>
+          <div className="grid md:grid-cols-3 lg:grid-cols-5 gap-4">
+            {products?.data.map((p) => (
+              <ProductItem
+                image={p.images[0]}
+                slug={p.slug}
+                title={p.title}
+                price={p.price}
+                key={p.id}
+              />
+            ))}
+          </div>
+
+          {products && products.meta.total > 15 && (
+            <Pagination>
+              <PaginationContent>
+                <PaginationItem>
+                  <PaginationPrevious
+                    isActive={parseInt(page ?? "1") !== 1}
+                    onClick={prevPage}
+                    className="cursor-pointer"
+                  />
+                </PaginationItem>
+                <PaginationItem>
+                  <PaginationNext
+                    isActive={parseInt(page ?? "1") !== products.meta.last_page}
+                    onClick={nextPage}
+                    className="cursor-pointer"
+                  />
+                </PaginationItem>
+              </PaginationContent>
+            </Pagination>
+          )}
+        </div>
       </div>
-    </div>
+    </Suspense>
   );
 }
 
