@@ -35,6 +35,7 @@ const getCategories = async () => {
 
 export function Navbar() {
   const [categories, setCategories] = useState<Category[]>([]);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     getCategories().then((data) => setCategories(data));
@@ -107,7 +108,7 @@ export function Navbar() {
           </div>
 
           {/* Mobile Nav button */}
-          <Sheet>
+          <Sheet onOpenChange={setIsMobileMenuOpen} open={isMobileMenuOpen}>
             <SheetTrigger asChild>
               <Button variant="ghost" size="icon" className="md:hidden">
                 <Menu className="size-6" />
@@ -121,10 +122,18 @@ export function Navbar() {
                     <AccordionTrigger>Products</AccordionTrigger>
                     <AccordionContent>
                       <div className="flex flex-col gap-2">
+                        <Link
+                          key={`all`}
+                          href={"/products"}
+                          onClick={() => setIsMobileMenuOpen(false)}
+                        >
+                          All
+                        </Link>
                         {categories.map((category) => (
                           <Link
                             key={category.id}
                             href={`/products?category=${category.slug}`}
+                            onClick={() => setIsMobileMenuOpen(false)}
                           >
                             {category.title}
                           </Link>
@@ -133,10 +142,18 @@ export function Navbar() {
                     </AccordionContent>
                   </AccordionItem>
                 </Accordion>
-                <Link href="/about_us" className="p-2">
+                <Link
+                  href="/about_us"
+                  className="p-2"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
                   About Us
                 </Link>
-                <Link href="/contact_us" className="p-2">
+                <Link
+                  href="/contact_us"
+                  className="p-2"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
                   Contact Us
                 </Link>
               </div>
