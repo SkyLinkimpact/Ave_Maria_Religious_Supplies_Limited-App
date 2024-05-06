@@ -99,11 +99,7 @@ function ProductsPage() {
       <div className="flex flex-col gap-6">
         <h1 className="text-lg md:text-3xl">
           Products{" "}
-          {category &&
-            `(${category
-              .replace("-", " ")
-              .toLocaleUpperCase()
-              .toWellFormed()})`}
+          {category && `(${category.replace("-", " ").toLocaleUpperCase()})`}
         </h1>
         <div className="grid md:grid-cols-3 lg:grid-cols-5 gap-4">
           {products?.data.map((p) => (
