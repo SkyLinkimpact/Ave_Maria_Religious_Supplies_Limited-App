@@ -13,12 +13,12 @@ export default async function ProductItemPage({
   const product = await getProduct(params.slug);
   return (
     <div className="grid md:grid-cols-2 gap-4 place-content-center place-items-center container m-auto">
-      <div className="min-h-60 relative w-full object-fill object-center">
+      <div className="h-80 relative w-full object-contain object-center">
         <Image
-          src={product.images[0][0]}
+          src={product.images[0]}
           alt={`${product.title} image`}
           fill
-          layout="cover"
+          objectFit="cover"
         />
       </div>
       <div className="flex flex-col gap-4">
