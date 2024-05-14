@@ -141,7 +141,9 @@ function ProductsPage() {
 }
 
 const getCategories = async () => {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}/categories`);
+  const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}/categories`, {
+    next: { revalidate: 60 * 60 * 50 },
+  });
 
   const data: Category[] = await res.json();
 
@@ -155,7 +157,9 @@ const getProducts = async (page = 1, categorySlug: string | null = null) => {
 
   uri = `${uri}?page=${page}`;
 
-  const res = await fetch(uri);
+  const res = await fetch(uri, {
+    next: { revalidate: 60 * 60 * 10 },
+  });
 
   const data: Products = await res.json();
 
