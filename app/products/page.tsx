@@ -2,7 +2,7 @@
 
 import { Category, Products } from "@/lib/types";
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
+import { useSearchParams, useRouter } from "next/navigation";
 import React, { Suspense, useEffect, useState } from "react";
 import ProductItem from "../_components/product-item";
 import {
@@ -12,7 +12,6 @@ import {
   PaginationPrevious,
   PaginationNext,
 } from "@/components/ui/pagination";
-import { useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
 
 function ProductsPage() {

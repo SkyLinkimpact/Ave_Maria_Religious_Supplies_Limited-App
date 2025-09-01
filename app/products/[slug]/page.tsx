@@ -1,15 +1,13 @@
 import Image from "next/image";
-
-import logo from "@/app/_assets/logo.webp";
-import { Button } from "@/components/ui/button";
 import { Product } from "@/lib/types";
 import { formatCurrency } from "@/lib/utils";
 
-export default async function ProductItemPage({
-  params,
-}: Readonly<{
-  params: { slug: string };
-}>) {
+export default async function ProductItemPage(
+  props: Readonly<{
+    params: { slug: string };
+  }>
+) {
+  const params = await props.params;
   const product = await getProduct(params.slug);
   return (
     <div className="grid md:grid-cols-2 gap-4 place-content-center place-items-center container m-auto">
