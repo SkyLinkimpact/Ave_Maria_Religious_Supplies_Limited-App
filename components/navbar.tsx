@@ -72,39 +72,67 @@ export function Navbar() {
             <NavigationMenu>
               <NavigationMenuList>
                 <NavigationMenuItem>
-                  <NavigationMenuTrigger className="text-base font-normal">
-                    Products
-                  </NavigationMenuTrigger>
+                  <NavigationMenuLink
+                    asChild
+                    className={navigationMenuTriggerStyle()}
+                  >
+                    <Link href="/">Home</Link>
+                  </NavigationMenuLink>
+                </NavigationMenuItem>
+                <NavigationMenuItem>
+                  <NavigationMenuTrigger>Products</NavigationMenuTrigger>
                   <NavigationMenuContent>
-                    <div className="w-32 flex flex-col">
-                      <Link href="/products" legacyBehavior passHref>
+                    <ul className="grid w-[200px] max-h-72 overflow-y-scroll gap-4">
+                      <li>
                         <NavigationMenuLink
-                          className={navigationMenuTriggerStyle()}
-                        >
-                          All
-                        </NavigationMenuLink>
-                      </Link>
-                      {categories.map((category) => (
-                        <Link
-                          key={category.id}
-                          href={`/products?category=${category.slug}`}
-                          legacyBehavior
-                          passHref
-                        >
-                          <NavigationMenuLink
                             className={navigationMenuTriggerStyle()}
+                            asChild
                           >
-                            {category.title}
+                            <Link href="/products">
+                              All
+                            </Link>
                           </NavigationMenuLink>
-                        </Link>
-                      ))}
-                    </div>
+                        {categories.map((category) => (
+                          <NavigationMenuLink
+                            key={category.id}
+                            className={navigationMenuTriggerStyle()}
+                            asChild
+                          >
+                            <Link href={`/products?category=${category.slug}`}>
+                              {category.title}
+                            </Link>
+                          </NavigationMenuLink>
+                        ))}
+                      </li>
+                    </ul>
                   </NavigationMenuContent>
+                </NavigationMenuItem>
+                <NavigationMenuItem>
+                  <NavigationMenuLink
+                    asChild
+                    className={navigationMenuTriggerStyle()}
+                  >
+                    <Link href="/about_us">About Us</Link>
+                  </NavigationMenuLink>
+                </NavigationMenuItem>
+                <NavigationMenuItem>
+                  <NavigationMenuLink
+                    asChild
+                    className={navigationMenuTriggerStyle()}
+                  >
+                    <Link href="/orphanage">Orphanage</Link>
+                  </NavigationMenuLink>
+                </NavigationMenuItem>
+                <NavigationMenuItem>
+                  <NavigationMenuLink
+                    asChild
+                    className={navigationMenuTriggerStyle()}
+                  >
+                    <Link href="/contact_us">Contact Us</Link>
+                  </NavigationMenuLink>
                 </NavigationMenuItem>
               </NavigationMenuList>
             </NavigationMenu>
-            <Link href="/about_us">About Us</Link>
-            <Link href="/contact_us">Contact Us</Link>
           </div>
 
           {/* Mobile Nav button */}

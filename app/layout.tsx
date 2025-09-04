@@ -18,12 +18,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${inter.className} antialiased bg-background grid grid-rows-[auto_1fr] h-screen w-screen gap-2`}
+        className={`${inter.className} antialiased bg-background grid grid-rows-[auto_1fr] h-screen w-screen`}
       >
         <Navbar />
-        <div className="overflow-y-auto">
-          <div className="container mx-auto p-4">{children}</div>
-        </div>
+        <div className="overflow-y-auto">{children}</div>
       </body>
     </html>
   );
