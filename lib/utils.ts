@@ -11,3 +11,9 @@ export function formatCurrency(data: number) {
     currency: "GBP",
   }).format(data);
 }
+
+export function toTitleCase(str: string) {
+  return str.replace(/\b[\w'-]+\b/g, (txt) => {
+    return txt.charAt(0).toUpperCase() + txt.slice(1).toLowerCase();
+  });
+}

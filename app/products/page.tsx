@@ -12,7 +12,7 @@ import {
   PaginationPrevious,
   PaginationNext,
 } from "@/components/ui/pagination";
-import { cn } from "@/lib/utils";
+import { cn, toTitleCase } from "@/lib/utils";
 
 function ProductsPage() {
   const searchParams = useSearchParams();
@@ -71,8 +71,8 @@ function ProductsPage() {
 
   return (
     <Suspense fallback={<>Loading</>}>
-      <div className="grid md:grid-cols-[auto_1fr] gap-4 h-full">
-        <div className="hidden md:flex flex-col gap-2 w-60 border-r">
+      <div className="container grid md:grid-cols-[auto_1fr] gap-4 h-full">
+        <div className="hidden md:flex flex-col gap-2 w-60 border-r h-full overflow-y-scroll">
           <Link
             key={"all"}
             href={`/products`}
@@ -96,12 +96,11 @@ function ProductsPage() {
           ))}
         </div>
 
-        <div className="flex flex-col gap-6">
+        <div className="flex flex-col gap-6 h-full overflow-y-scroll pb-8">
           <h1 className="text-lg md:text-3xl">
-            Products{" "}
-            {category && `(${category.replace("-", " ").toLocaleUpperCase()})`}
+            Products {category && `(${toTitleCase(category)})`}
           </h1>
-          <div className="grid md:grid-cols-3 lg:grid-cols-5 gap-4">
+          <div className="grid md:grid-cols-3 gap-4">
             {products?.data.map((p) => (
               <ProductItem
                 image={p.images[0]}
