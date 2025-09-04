@@ -1,11 +1,13 @@
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { Mail, MapPin, Phone } from "lucide-react";
+import { Facebook, Instagram, Mail, MapPin, Phone } from "lucide-react";
 
 import contactUsImage from "@/app/_assets/contact-us.webp";
+import Link from "next/link";
+import { cn } from "@/lib/utils";
 
 function ContactUsPage() {
   return (
@@ -54,6 +56,23 @@ function ContactUsPage() {
                 avemaria.supplies@hotmail.com
               </a>
             </div>
+          </div>
+
+          <div className="flex gap-2">
+            <Link
+              href="https://www.facebook.com/people/Ave-Maria-Religious-Supplies-Ltd/61570842891742/?_rdr"
+              className={cn(buttonVariants({ variant: "link", size: "icon" }))}
+              target="_blank"
+            >
+              <Facebook />
+            </Link>
+            <Link
+              href="https://www.instagram.com/avemaria.supplies?igsh=c29yYWd0dnVvZGNk"
+              className={cn(buttonVariants({ variant: "link", size: "icon" }))}
+              target="_blank"
+            >
+              <Instagram />
+            </Link>
           </div>
         </div>
         <div className="gap-4 flex flex-col">
