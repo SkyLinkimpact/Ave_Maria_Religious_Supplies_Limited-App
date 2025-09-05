@@ -1,10 +1,20 @@
-import React from "react";
+import aboutUsImage from "@/app/_assets/AMRSL_Office_Front.jpg";
 
 function AboutUsPage() {
   return (
     <div className="w-full flex flex-col gap-6">
-      <h1 className="text-2xl lg:text-4xl">Who We Are</h1>
-      <div className="space-y-4">
+      <div
+        className="w-full  min-h-80 lg:min-h-[600px] pt-2 bg-no-repeat bg-cover bg-center relative"
+        style={{ backgroundImage: `url(${aboutUsImage.src})` }}
+      >
+        <div className="p-4 inset-0 absolute bg-black/55 flex flex-col items-center justify-center text-center">
+          <div className="text-slate-50 lg:w-[80ch]">
+            <h1>About Us</h1>
+          </div>
+        </div>
+      </div>
+
+      <div className="container gap-4 flex flex-col py-8">
         <p>
           Ave Maria Religious Supplies Ltd. is a family run business, we are
           into religious supplies such as sacramentals, baptism and communion
@@ -31,10 +41,9 @@ function AboutUsPage() {
           others or those who wish to talk about their faith experiences or to
           learn more about God.
         </p>
+        <h3>Our Mission statement</h3>
+        <p>To Promote faith and reach out to others in charity</p>
       </div>
-
-      <h3 className="text-lg lg:text-2xl">Our Mission statement</h3>
-      <p>To Promote faith and reach out to others in charity</p>
     </div>
   );
 }
