@@ -15,34 +15,22 @@ import {
   navigationMenuTriggerStyle,
   NavigationMenuTrigger,
 } from "./ui/navigation-menu";
-import { Category } from "@/lib/types";
-import { useEffect, useState } from "react";
-import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet";
+import { useState } from "react";
 import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "./ui/accordion";
-
-const getCategories = async () => {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}/categories`);
-
-  const data: Category[] = await res.json();
-
-  return data;
-};
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "./ui/sheet";
+import useCategories from "@/hooks/useCategories";
 
 export function Navbar() {
-  const [categories, setCategories] = useState<Category[]>([]);
+  const { categories } = useCategories();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  useEffect(() => {
-    getCategories().then((data) => setCategories(data));
-  }, []);
-
   return (
-    <div className="w-full px-4 py-2 border-b border-primary shadow-md shadow-primary/70">
+    <div className="w-full px-4 py-2 border-b-2 border-primary">
       <div className="container mx-auto flex justify-between items-center">
         <Link href="/">
           <Image
@@ -85,14 +73,12 @@ export function Navbar() {
                     <ul className="grid w-[200px] max-h-72 overflow-y-scroll gap-4">
                       <li>
                         <NavigationMenuLink
-                            className={navigationMenuTriggerStyle()}
-                            asChild
-                          >
-                            <Link href="/products">
-                              All
-                            </Link>
-                          </NavigationMenuLink>
-                        {categories.map((category) => (
+                          className={navigationMenuTriggerStyle()}
+                          asChild
+                        >
+                          <Link href="/products">All</Link>
+                        </NavigationMenuLink>
+                        {categories?.map((category) => (
                           <NavigationMenuLink
                             key={category.id}
                             className={navigationMenuTriggerStyle()}
@@ -144,32 +130,24 @@ export function Navbar() {
             </SheetTrigger>
 
             <SheetContent>
+              <SheetHeader>
+                <SheetTitle className="sr-only">Edit profile</SheetTitle>
+              </SheetHeader>
               <div className="flex flex-col gap-2">
-                <Accordion collapsible type="single">
-                  <AccordionItem value="products">
-                    <AccordionTrigger>Products</AccordionTrigger>
-                    <AccordionContent>
-                      <div className="flex flex-col gap-2">
-                        <Link
-                          key={`all`}
-                          href={"/products"}
-                          onClick={() => setIsMobileMenuOpen(false)}
-                        >
-                          All
-                        </Link>
-                        {categories.map((category) => (
-                          <Link
-                            key={category.id}
-                            href={`/products?category=${category.slug}`}
-                            onClick={() => setIsMobileMenuOpen(false)}
-                          >
-                            {category.title}
-                          </Link>
-                        ))}
-                      </div>
-                    </AccordionContent>
-                  </AccordionItem>
-                </Accordion>
+                <Link
+                  href="/"
+                  className="p-2"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Home
+                </Link>
+                <Link
+                  href="/products"
+                  className="p-2"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Products
+                </Link>
                 <Link
                   href="/about_us"
                   className="p-2"

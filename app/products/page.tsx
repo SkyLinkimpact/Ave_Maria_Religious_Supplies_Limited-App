@@ -14,6 +14,7 @@ import { cn, toTitleCase } from "@/lib/utils";
 import useProducts from "@/hooks/useProducts";
 import { Skeleton } from "@/components/ui/skeleton";
 import useCategories from "@/hooks/useCategories";
+import CategoriesFilterFab from "./categories-filter-fab";
 
 const PAGE_SIZE = 15;
 
@@ -81,7 +82,7 @@ function ProductsPage() {
         ))}
       </div>
 
-      <div className="flex flex-col gap-6 h-full overflow-y-scroll pb-8">
+      <div className="flex flex-col gap-6 h-full overflow-y-scroll py-8 relative">
         <h1 className="text-lg md:text-3xl">
           Products {category && `(${toTitleCase(category)})`}
         </h1>
@@ -129,6 +130,8 @@ function ProductsPage() {
             </PaginationContent>
           </Pagination>
         )}
+
+        {categories && <CategoriesFilterFab categories={categories} />}
       </div>
     </div>
   );
