@@ -14,7 +14,6 @@ import { cn, toTitleCase } from "@/lib/utils";
 import useProducts from "@/hooks/useProducts";
 import { Skeleton } from "@/components/ui/skeleton";
 import useCategories from "@/hooks/useCategories";
-import { Suspense } from "react";
 
 const PAGE_SIZE = 15;
 
@@ -57,83 +56,81 @@ function ProductsPage() {
   }
 
   return (
-    <Suspense>
-      <div className="container grid md:grid-cols-[auto_1fr] gap-4 h-full">
-        <div className="hidden md:flex flex-col gap-2 w-60 border-r h-full overflow-y-scroll">
+    <div className="container grid md:grid-cols-[auto_1fr] gap-4 h-full">
+      <div className="hidden md:flex flex-col gap-2 w-60 border-r h-full overflow-y-scroll">
+        <Link
+          href="/products"
+          className={cn(
+            "p-4 hover:bg-primary hover:text-white hover:font-semibold duration-150 ease-in transition-all",
+            !category && "text-primary font-semibold uppercase"
+          )}
+        >
+          All
+        </Link>
+        {categories?.map((cat) => (
           <Link
-            href="/products"
+            key={cat.id}
+            href={`/products?category=${cat.slug}`}
             className={cn(
               "p-4 hover:bg-primary hover:text-white hover:font-semibold duration-150 ease-in transition-all",
-              !category && "text-primary font-semibold uppercase"
+              category === cat.slug && "text-primary font-semibold uppercase"
             )}
           >
-            All
+            {cat.title}
           </Link>
-          {categories?.map((cat) => (
-            <Link
-              key={cat.id}
-              href={`/products?category=${cat.slug}`}
-              className={cn(
-                "p-4 hover:bg-primary hover:text-white hover:font-semibold duration-150 ease-in transition-all",
-                category === cat.slug && "text-primary font-semibold uppercase"
-              )}
-            >
-              {cat.title}
-            </Link>
-          ))}
-        </div>
-
-        <div className="flex flex-col gap-6 h-full overflow-y-scroll pb-8">
-          <h1 className="text-lg md:text-3xl">
-            Products {category && `(${toTitleCase(category)})`}
-          </h1>
-
-          {isProductsLoading ? (
-            <div className="grid md:grid-cols-3 gap-4">
-              {Array.from({ length: PAGE_SIZE }).map(() => {
-                const uniqueKey = `loading-product-${Math.random()
-                  .toString(36)
-                  .slice(2, 9)}`;
-                return <ProductLoading key={uniqueKey} />;
-              })}
-            </div>
-          ) : (
-            <div className="grid md:grid-cols-3 gap-4">
-              {products?.data.map((p) => (
-                <ProductItem
-                  image={p.images[0]}
-                  slug={p.slug}
-                  title={p.title}
-                  price={p.price}
-                  key={p.id}
-                />
-              ))}
-            </div>
-          )}
-
-          {products && products.meta.total > PAGE_SIZE && (
-            <Pagination>
-              <PaginationContent>
-                <PaginationItem>
-                  <PaginationPrevious
-                    isActive={page !== 1}
-                    onClick={prevPageHandler}
-                    className="cursor-pointer"
-                  />
-                </PaginationItem>
-                <PaginationItem>
-                  <PaginationNext
-                    isActive={page !== products.meta.last_page}
-                    onClick={nextPageHandler}
-                    className="cursor-pointer"
-                  />
-                </PaginationItem>
-              </PaginationContent>
-            </Pagination>
-          )}
-        </div>
+        ))}
       </div>
-    </Suspense>
+
+      <div className="flex flex-col gap-6 h-full overflow-y-scroll pb-8">
+        <h1 className="text-lg md:text-3xl">
+          Products {category && `(${toTitleCase(category)})`}
+        </h1>
+
+        {isProductsLoading ? (
+          <div className="grid md:grid-cols-3 gap-4">
+            {Array.from({ length: PAGE_SIZE }).map(() => {
+              const uniqueKey = `loading-product-${Math.random()
+                .toString(36)
+                .slice(2, 9)}`;
+              return <ProductLoading key={uniqueKey} />;
+            })}
+          </div>
+        ) : (
+          <div className="grid md:grid-cols-3 gap-4">
+            {products?.data.map((p) => (
+              <ProductItem
+                image={p.images[0]}
+                slug={p.slug}
+                title={p.title}
+                price={p.price}
+                key={p.id}
+              />
+            ))}
+          </div>
+        )}
+
+        {products && products.meta.total > PAGE_SIZE && (
+          <Pagination>
+            <PaginationContent>
+              <PaginationItem>
+                <PaginationPrevious
+                  isActive={page !== 1}
+                  onClick={prevPageHandler}
+                  className="cursor-pointer"
+                />
+              </PaginationItem>
+              <PaginationItem>
+                <PaginationNext
+                  isActive={page !== products.meta.last_page}
+                  onClick={nextPageHandler}
+                  className="cursor-pointer"
+                />
+              </PaginationItem>
+            </PaginationContent>
+          </Pagination>
+        )}
+      </div>
+    </div>
   );
 }
 
