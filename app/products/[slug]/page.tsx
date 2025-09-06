@@ -4,7 +4,7 @@ import { formatCurrency } from "@/lib/utils";
 
 export default async function ProductItemPage(
   props: Readonly<{
-    params: { slug: string };
+    params: Promise<{ slug: string }>;
   }>
 ) {
   const params = await props.params;
