@@ -1,15 +1,10 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
 import ProductItem from "./product-item";
-import { Products as Product } from "@/lib/types";
+import useProducts from "@/hooks/useProducts";
 
 function Products() {
-  const [products, setProducts] = useState<Product>();
-
-  useEffect(() => {
-    getProducts().then((p) => setProducts(p));
-  }, []);
+  const { products } = useProducts();
 
   return (
     <div className="grid md:grid-cols-3 lg:grid-cols-5 gap-4">
@@ -25,19 +20,5 @@ function Products() {
     </div>
   );
 }
-
-const getProducts = async (page = 1, categorySlug: string | null = null) => {
-  let uri = `${process.env.NEXT_PUBLIC_BACKEND_API}/products`;
-
-  if (categorySlug) uri = `${uri}/categories/${categorySlug}`;
-
-  uri = `${uri}?page=${page}`;
-
-  const res = await fetch(uri);
-
-  const data: Product = await res.json();
-
-  return data;
-};
 
 export default Products;

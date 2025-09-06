@@ -1,10 +1,10 @@
-import aboutUsImage from "@/app/_assets/AMRSL_Office_Front.jpg";
+import aboutUsImage from "@/app/_assets/AMRSL-WHO_WE_ARE.jpg";
 
 function AboutUsPage() {
   return (
     <div className="w-full flex flex-col gap-6">
       <div
-        className="w-full  min-h-80 lg:min-h-[600px] pt-2 bg-no-repeat bg-cover bg-center relative"
+        className="w-full h-80 lg:h-[75dvh] pt-2 bg-no-repeat bg-cover bg-center relative"
         style={{ backgroundImage: `url(${aboutUsImage.src})` }}
       >
         <div className="p-4 inset-0 absolute bg-black/55 flex flex-col items-center justify-center text-center">
