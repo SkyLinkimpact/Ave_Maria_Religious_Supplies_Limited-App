@@ -28,7 +28,7 @@ function ProductItem({ title, slug, image, price }: Readonly<ProductItemType>) {
           <p>{formatCurrency(price)}</p>
           <Link
             className={cn(
-              buttonVariants({ variant: "default", size: "sm" }),
+              buttonVariants({ variant: "default" }),
               "w-full"
             )}
             href={`/products/${slug}`}
