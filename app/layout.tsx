@@ -21,7 +21,7 @@ export default function RootLayout({
         className={`${inter.className} antialiased bg-background grid grid-rows-[auto_1fr] h-screen w-screen`}
       >
         <Navbar />
-        <div className="overflow-y-auto">{children}</div>
+        <div className="overflow-y-auto pb-12">{children}</div>
       </body>
     </html>
   );

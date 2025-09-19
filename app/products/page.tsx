@@ -110,6 +110,8 @@ function ProductsPage() {
           </div>
         )}
 
+        <div className="flex-1"/>
+
         {products && products.meta.total > PAGE_SIZE && (
           <Pagination>
             <PaginationContent>
